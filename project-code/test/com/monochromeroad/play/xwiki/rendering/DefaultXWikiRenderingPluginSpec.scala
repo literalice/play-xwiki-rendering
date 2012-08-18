@@ -20,7 +20,7 @@ class DefaultXWikiRenderingPluginSpec extends Specification {
     "load default component" in {
       running(FakeApplication(
           additionalPlugins = Seq("com.monochromeroad.play.xwiki.rendering.DefaultXWikiRenderingPlugin"),
-          additionalConfiguration = Map("xwiki.rendering.default.macros" -> "com.monochromeroad.play.xwiki.rendering.macros.DefaultRbMacro"))) {
+          additionalConfiguration = Map("xwiki.rendering.default.macros.1" -> "com.monochromeroad.play.xwiki.rendering.macros.DefaultRbMacro"))) {
         convert("**TEST** {{rb read='read'}}Unreadable word{{/rb}}") must contain("<ruby>")
       }
     }

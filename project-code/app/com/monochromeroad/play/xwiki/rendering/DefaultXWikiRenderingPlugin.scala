@@ -9,13 +9,11 @@ import play.api._
 class DefaultXWikiRenderingPlugin(app: Application) extends Plugin {
 
   override def onStart() {
-    app.configuration.getString("xwiki.rendering.default.macros") match {
-      case Some(macroConfig) =>
-        val macros = macroConfig.split(",")
-        val macroClasses = macros.map(loadMacroClass).collect { case Some(mc) => mc }
-        macroClasses.map(DefaultXWikiComponentManager.registerDefaultMacro)
-      case None => // does nothing
-    }
+    val macroListKeys = app.configuration.keys.filter((p) => p.startsWith("xwiki.rendering.default.macros"))
+    val macroList = macroListKeys.map { n => app.configuration.getString(n).get }
+    macroList.map({macroName =>
+      loadMacroClass(macroName).map(DefaultXWikiComponentManager.registerDefaultMacro)
+    })
   }
 
   private def loadMacroClass(macroClassName: String): Option[Class[DefaultXWikiMacro[_]]] = {
