@@ -13,9 +13,9 @@ class XWikiRendererSpec extends XWikiSyntaxSpec {
   val xwikiRenderer = new XWikiRenderer(componentManager)
 
   val renderedCheatSheet = xwikiRenderer.renderWithMacros(cheatSheet)
-  System.out.println("--------------- XWiki Cheat Sheet ---------------\n")
-  System.out.println(renderedCheatSheet)
-  System.out.println("\n-------------------------------------------------\n")
+  println("--------------- XWiki Cheat Sheet ---------------\n")
+  println(renderedCheatSheet)
+  println("\n-------------------------------------------------\n")
 
 
   "A html rendered with macros" should {

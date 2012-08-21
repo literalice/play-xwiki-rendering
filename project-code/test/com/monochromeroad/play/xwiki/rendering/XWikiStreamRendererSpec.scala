@@ -19,8 +19,8 @@ class XWikiStreamRendererSpec extends XWikiSyntaxSpec {
     { (acc: String, n: String) => acc + n }
   )
 
-  System.out.println(renderedHTML)
-  System.out.println("\n-------------------------------------------------\n")
+  println(renderedHTML)
+  println("\n-------------------------------------------------\n")
 
   "A html rendered without macros" should {
     containXhtmlHeading(renderedHTML)
@@ -32,5 +32,23 @@ class XWikiStreamRendererSpec extends XWikiSyntaxSpec {
     containXhtmlLinks(renderedHTML)
     containXhtmlTables(renderedHTML)
     notContainMacroXhtmls(renderedHTML)
+  }
+
+  val renderedMacros = xwikiRenderer.renderWithMacros[StringBuilder](
+    new StringReader(cheatSheet),
+    new StringBuilder(),
+    { (acc: StringBuilder, n: String) => acc.append(n) }
+  ).toString()
+
+  "A html rendered with macros" should {
+    containXhtmlHeading(renderedMacros)
+    containXhtmlFormats(renderedMacros)
+    containXhtmlHorizontalLines(renderedMacros)
+    containXhtmlLists(renderedMacros)
+    containXhtmlDefLists(renderedMacros)
+    containXhtmlLineBreaks(renderedMacros)
+    containXhtmlLinks(renderedMacros)
+    containXhtmlTables(renderedMacros)
+    containMacroXhtmls(renderedMacros)
   }
 }
