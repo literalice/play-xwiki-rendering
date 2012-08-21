@@ -11,6 +11,8 @@ import org.xwiki.rendering.renderer.printer.DefaultWikiPrinter
 import org.xwiki.rendering.renderer.PrintRendererFactory
 
 /**
+ * Plugin for the default XWiki rendering system
+ *
  * @author Masatoshi Hayashi
  */
 
