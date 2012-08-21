@@ -250,7 +250,7 @@ This is not a ~[~[link~]~]
 
                    """.trim
 
-  val renderedAsHTML = Map(
+  val sampleHTML = Map(
     "heading" -> Map(
       "level1" -> "<h1 id=\"HHeading\"><span>Heading</span></h1>",
       "level2" -> "<h2 id=\"Hlevel2\"><span>level 2</span></h2>",
@@ -311,7 +311,7 @@ This is not a ~[~[link~]~]
 
   def containXhtmlHeading(target: String) :Example = {
     "contain heading" in {
-      val renderedHeading = renderedAsHTML("heading")
+      val renderedHeading = sampleHTML("heading")
       target must contain(renderedHeading("level1"))
       target must contain(renderedHeading("level2"))
       target must contain(renderedHeading("level3"))
@@ -323,7 +323,7 @@ This is not a ~[~[link~]~]
 
   def containXhtmlFormats(target: String) :Example = {
     "contain html format tag" in {
-      val renderedFormat = renderedAsHTML("format")
+      val renderedFormat = sampleHTML("format")
       target must contain(renderedFormat("strong"))
       target must contain(renderedFormat("underline"))
       target must contain(renderedFormat("italic"))
@@ -336,7 +336,7 @@ This is not a ~[~[link~]~]
 
   def containXhtmlHorizontalLines(target: String) :Example = {
     "contain horizontal line" in {
-      val renderedLine = renderedAsHTML("horizontal line")
+      val renderedLine = sampleHTML("horizontal line")
       target must contain(renderedLine("standard"))
       target must contain(renderedLine("parameterized"))
     }
@@ -344,7 +344,7 @@ This is not a ~[~[link~]~]
 
   def containXhtmlLists(target: String) :Example = {
     "contain list" in {
-      val renderedList = renderedAsHTML("list")
+      val renderedList = sampleHTML("list")
       target must contain(renderedList("bulleted"))
       target must contain(renderedList("numbered"))
       target must contain(renderedList("mixed"))
@@ -354,7 +354,7 @@ This is not a ~[~[link~]~]
 
   def containXhtmlDefLists(target: String) :Example = {
     "contain definition list" in {
-      val renderedDefList = renderedAsHTML("definition list")
+      val renderedDefList = sampleHTML("definition list")
       target must contain(renderedDefList("standard"))
       target must contain(renderedDefList("nested"))
       target must contain(renderedDefList("parameterized"))
@@ -363,7 +363,7 @@ This is not a ~[~[link~]~]
 
   def containXhtmlLineBreaks(target: String) :Example = {
     "contain html line break" in {
-      val renderedLineBreak = renderedAsHTML("line break")
+      val renderedLineBreak = sampleHTML("line break")
       target must contain(renderedLineBreak("type1"))
       target must contain(renderedLineBreak("type2"))
     }
@@ -371,7 +371,7 @@ This is not a ~[~[link~]~]
 
   def containXhtmlLinks(target: String) :Example = {
     "contain links" in {
-      val renderedLink = renderedAsHTML("link")
+      val renderedLink = sampleHTML("link")
       target must contain(renderedLink("internal"))
       target must contain(renderedLink("labeled internal"))
       target must contain(renderedLink("rich labeled internal"))
@@ -390,7 +390,7 @@ This is not a ~[~[link~]~]
 
   def containXhtmlTables(target: String) :Example = {
     "contain tables" in {
-      val renderedTable = renderedAsHTML("table")
+      val renderedTable = sampleHTML("table")
       target must contain(renderedTable("standard1"))
       target must contain(renderedTable("standard2"))
       target must contain(renderedTable("parameterized"))
