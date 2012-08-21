@@ -12,13 +12,13 @@ class XWikiRendererSpec extends XWikiSyntaxSpec {
 
   val xwikiRenderer = new XWikiRenderer(componentManager)
 
-  val renderedCheatSheet = xwikiRenderer.render(cheatSheet)
+  val renderedCheatSheet = xwikiRenderer.renderWithMacros(cheatSheet)
   System.out.println("--------------- XWiki Cheat Sheet ---------------\n")
   System.out.println(renderedCheatSheet)
   System.out.println("\n-------------------------------------------------\n")
 
 
-  "The cheat cheet rendered as html" should {
+  "A html rendered with macros" should {
     containXhtmlHeading(renderedCheatSheet)
     containXhtmlFormats(renderedCheatSheet)
     containXhtmlHorizontalLines(renderedCheatSheet)
@@ -27,5 +27,20 @@ class XWikiRendererSpec extends XWikiSyntaxSpec {
     containXhtmlLineBreaks(renderedCheatSheet)
     containXhtmlLinks(renderedCheatSheet)
     containXhtmlTables(renderedCheatSheet)
+    containMacroXhtmls(renderedCheatSheet)
   }
+
+  val renderedWithoutMacros = xwikiRenderer.render(cheatSheet)
+  "A html rendered without macros" should {
+    containXhtmlHeading(renderedWithoutMacros)
+    containXhtmlFormats(renderedWithoutMacros)
+    containXhtmlHorizontalLines(renderedWithoutMacros)
+    containXhtmlLists(renderedWithoutMacros)
+    containXhtmlDefLists(renderedWithoutMacros)
+    containXhtmlLineBreaks(renderedWithoutMacros)
+    containXhtmlLinks(renderedWithoutMacros)
+    containXhtmlTables(renderedWithoutMacros)
+    notContainMacroXhtmls(renderedWithoutMacros)
+  }
+
 }

@@ -7,7 +7,11 @@ import org.xwiki.rendering.block.XDOM
 import org.xwiki.rendering.parser.StreamParser
 
 /**
- * XWiki rendering system in a stream
+ * XWiki Rendering System -- streaming based
+ *
+ * <br /><br />
+ *
+ * Default syntax: xwiki/2.1 output: xhtml/1.0
  *
  * @author Masatoshi Hayashi
  */
@@ -43,11 +47,11 @@ class XWikiStreamRenderer(val componentManager: XWikiComponentManager) extends X
    * @return Result
    */
   def render[T](source :Reader, input: Syntax, iv: T, proc: (T, String) => T): T = {
-    render[T](source, input, Syntax.XHTML_1_0, iv, proc)
+    render[T](source, input, defaultOutputSyntax, iv, proc)
   }
 
   /**
-   * XWiki XHTML rendering in a stream using xwiki/2.1 syntax.
+   * XWiki XHTML rendering in a stream using default syntax.
    *
    * @param source Input stream
    * @param iv Initial value on output function
@@ -56,7 +60,7 @@ class XWikiStreamRenderer(val componentManager: XWikiComponentManager) extends X
    * @return Result
    */
   def render[T](source :Reader, iv: T, proc: (T, String) => T): T = {
-    render[T](source, Syntax.XWIKI_2_1, Syntax.XHTML_1_0, iv, proc)
+    render[T](source, defaultInputSyntax, defaultOutputSyntax, iv, proc)
   }
 
   /**
@@ -76,7 +80,7 @@ class XWikiStreamRenderer(val componentManager: XWikiComponentManager) extends X
     val xdom = buildXDOM(componentManager, source, input)
     val transformationsWithMacro = List.concat(
       transformations , List(getTransformationForMacro(componentManager)))
-    transformWithMacro(componentManager, xdom, input, transformationsWithMacro)
+    transform(componentManager, xdom, input, transformationsWithMacro)
     processStream(xdom, output, iv, proc)
   }
 
@@ -93,11 +97,11 @@ class XWikiStreamRenderer(val componentManager: XWikiComponentManager) extends X
    * @return Result
    */
   def renderWithMacros[T](source :Reader, input: Syntax, transformations: Seq[Transformation], iv: T, proc: (T, String) => T): T = {
-    renderWithMacros[T](source, input, Syntax.XHTML_1_0, transformations, iv, proc)
+    renderWithMacros[T](source, input, defaultOutputSyntax, transformations, iv, proc)
   }
 
   /**
-   * XWiki XHTML rendering in a stream with macros and some transformations using xwiki/2.1 syntax.
+   * XWiki XHTML rendering in a stream with macros and some transformations using default syntax.
    * It needs to create XDOM represented the document structure in memory.
    *
    * @param source Input stream
@@ -108,7 +112,7 @@ class XWikiStreamRenderer(val componentManager: XWikiComponentManager) extends X
    * @return Result
    */
   def renderWithMacros[T](source :Reader, transformations: Seq[Transformation], iv: T, proc: (T, String) => T): T = {
-    renderWithMacros[T](source, Syntax.XWIKI_2_1, Syntax.XHTML_1_0, transformations, iv, proc)
+    renderWithMacros[T](source, defaultInputSyntax, defaultOutputSyntax, transformations, iv, proc)
   }
 
   /**
@@ -139,11 +143,11 @@ class XWikiStreamRenderer(val componentManager: XWikiComponentManager) extends X
    * @return Result
    */
   def renderWithMacros[T](source :Reader, input: Syntax, iv: T, proc: (T, String) => T): T = {
-    renderWithMacros[T](source, input, Syntax.XHTML_1_0, iv, proc)
+    renderWithMacros[T](source, input, defaultOutputSyntax, iv, proc)
   }
 
   /**
-   * XWiki XHTML rendering in a stream with macros using xwiki/2.1 syntax.
+   * XWiki XHTML rendering in a stream with macros using default syntax.
    * It needs to create XDOM represented the document structure in memory.
    *
    * @param source Input stream
@@ -153,7 +157,7 @@ class XWikiStreamRenderer(val componentManager: XWikiComponentManager) extends X
    * @return Result
    */
   def renderWithMacros[T](source :Reader, iv: T, proc: (T, String) => T): T = {
-    renderWithMacros[T](source, Syntax.XWIKI_2_1, Syntax.XHTML_1_0, iv, proc)
+    renderWithMacros[T](source, defaultInputSyntax, defaultOutputSyntax, iv, proc)
   }
 
   /**
@@ -171,7 +175,7 @@ class XWikiStreamRenderer(val componentManager: XWikiComponentManager) extends X
    */
   def renderWithTransformations[T](source :Reader, input: Syntax, output: Syntax, transformations: Seq[Transformation], iv: T, proc: (T, String) => T): T = {
     val xdom = buildXDOM(componentManager, source, input)
-    transformWithMacro(componentManager, xdom, input, transformations)
+    transform(componentManager, xdom, input, transformations)
     processStream(xdom, output, iv, proc)
   }
 
@@ -188,11 +192,11 @@ class XWikiStreamRenderer(val componentManager: XWikiComponentManager) extends X
    * @return Result
    */
   def renderWithTransformations[T](source :Reader, input: Syntax, transformations: Seq[Transformation], iv: T, proc: (T, String) => T): T = {
-    renderWithTransformations[T](source, input, Syntax.XHTML_1_0, transformations, iv, proc)
+    renderWithTransformations[T](source, input, defaultOutputSyntax, transformations, iv, proc)
   }
 
   /**
-   * XWiki XHTML rendering in a stream with some transformations using xwiki/2.1 syntax.
+   * XWiki XHTML rendering in a stream with some transformations using default syntax.
    * It needs to create XDOM represented the document structure in memory.
    *
    * @param source Input stream
@@ -203,7 +207,7 @@ class XWikiStreamRenderer(val componentManager: XWikiComponentManager) extends X
    * @return Result
    */
   def renderWithTransformations[T](source :Reader, transformations: Seq[Transformation], iv: T, proc: (T, String) => T): T = {
-    renderWithTransformations[T](source, Syntax.XWIKI_2_1, Syntax.XHTML_1_0, transformations, iv, proc)
+    renderWithTransformations[T](source, defaultInputSyntax, defaultOutputSyntax, transformations, iv, proc)
   }
 
   private def processStream[T](xdom: XDOM, syntax: Syntax, init: T, callback: (T, String) => T): T = {

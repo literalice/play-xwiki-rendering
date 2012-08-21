@@ -1,6 +1,6 @@
 package com.monochromeroad.play.xwiki.rendering
 
-import org.xwiki.rendering.renderer.{Renderer, PrintRendererFactory, BlockRenderer}
+import org.xwiki.rendering.renderer.{Renderer, PrintRendererFactory}
 import org.xwiki.rendering.renderer.printer.WikiPrinter
 import org.xwiki.rendering.syntax.Syntax
 import org.xwiki.rendering.block.XDOM
@@ -10,8 +10,11 @@ import org.xwiki.rendering.transformation.{TransformationContext, Transformation
 /**
  * @author Masatoshi Hayashi
  */
-
 trait XWikiRenderingSystem {
+
+  protected val defaultInputSyntax = Syntax.XWIKI_2_1
+
+  protected val defaultOutputSyntax = Syntax.XHTML_1_0
 
   protected def applyRenderer(componentManager: XWikiComponentManager, xdom: XDOM, syntax: Syntax, printer: WikiPrinter) {
     val renderer = createRenderer(componentManager, syntax, printer)
@@ -28,7 +31,7 @@ trait XWikiRenderingSystem {
     parser.parse(source)
   }
 
-  protected final def transformWithMacro(componentManager: XWikiComponentManager, xdom: XDOM, syntax: Syntax, transformations: Seq[Transformation]) {
+  protected final def transform(componentManager: XWikiComponentManager, xdom: XDOM, syntax: Syntax, transformations: Seq[Transformation]) {
     val txContext = new TransformationContext(xdom, syntax)
     transformations.map({ tx => tx.transform(xdom, txContext)})
   }
@@ -36,5 +39,6 @@ trait XWikiRenderingSystem {
   protected final def getTransformationForMacro(componentManager: XWikiComponentManager): Transformation = {
     componentManager.getInstance[Transformation]("macro")
   }
+
 }
 

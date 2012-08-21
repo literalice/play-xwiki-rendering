@@ -306,6 +306,9 @@ This is not a ~[~[link~]~]
       "standard1" -> "<table><tr><th scope=\"col\">Title 1</th><th scope=\"col\">Title 2</th></tr><tr><td>Word 1</td><td>Word 2</td></tr></table>",
       "standard2" -> "<table><tr><th scope=\"col\">Title 3</th><th scope=\"col\">Title 4</th></tr><tr><td>Word 3</td><td>Word 4</td></tr></table>",
       "parameterized" -> "<table style=\"background-color:red;align=center\"><tr><th scope=\"col\">Title 1</th><th style=\"background-color:yellow\" scope=\"col\">Title 2</th></tr><tr><td>Word 1</td><td>Word 2</td></tr></table>"
+    ),
+    "macro" -> Map(
+      "inline" -> "<ruby>Text<rp>(</rp><rt>rb text</rt><rp>)</rp></ruby>"
     )
   )
 
@@ -394,6 +397,20 @@ This is not a ~[~[link~]~]
       target must contain(renderedTable("standard1"))
       target must contain(renderedTable("standard2"))
       target must contain(renderedTable("parameterized"))
+    }
+  }
+
+  def containMacroXhtmls(target: String) :Example = {
+    "contain macro xhtml codes" in {
+      val renderedTable = sampleHTML("macro")
+      target must contain(renderedTable("inline"))
+    }
+  }
+
+  def notContainMacroXhtmls(target: String) :Example = {
+    "not contain macro xhtml codes" in {
+      val renderedTable = sampleHTML("macro")
+      target must not contain(renderedTable("inline"))
     }
   }
 
