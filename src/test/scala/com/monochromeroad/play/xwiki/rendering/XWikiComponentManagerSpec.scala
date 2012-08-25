@@ -21,7 +21,7 @@ class XWikiComponentManagerSpec extends Specification {
     val componentManager = new XWikiComponentManager(getClass.getClassLoader)
     componentManager.registerMacro(classOf[RbMacro])
 
-    val xwikiRenderer = new XWikiRenderer(componentManager)
+    val xwikiRenderer = new XWikiRenderer(componentManager, new XWikiRendererConfiguration())
     xwikiRenderer.render(src, Syntax.XWIKI_2_1, Syntax.XHTML_1_0)
   }
 }

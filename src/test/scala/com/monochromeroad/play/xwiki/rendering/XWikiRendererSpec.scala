@@ -12,7 +12,7 @@ class XWikiRendererSpec extends XWikiSyntaxSpec {
 
   val xwikiRenderer = new XWikiRenderer(componentManager)
 
-  val renderedCheatSheet = xwikiRenderer.renderWithMacros(cheatSheet)
+  val renderedCheatSheet = xwikiRenderer.render(cheatSheet)
   println("--------------- XWiki Cheat Sheet ---------------\n")
   println(renderedCheatSheet)
   println("\n-------------------------------------------------\n")
@@ -30,7 +30,10 @@ class XWikiRendererSpec extends XWikiSyntaxSpec {
     containMacroXhtmls(renderedCheatSheet)
   }
 
-  val renderedWithoutMacros = xwikiRenderer.render(cheatSheet)
+  val xwikiRendererWithoutMacros =
+    new XWikiRenderer(componentManager, new XWikiRendererConfiguration(macrosEnabled = false))
+  val renderedWithoutMacros = xwikiRendererWithoutMacros.render(cheatSheet)
+
   "A html rendered without macros" should {
     containXhtmlHeading(renderedWithoutMacros)
     containXhtmlFormats(renderedWithoutMacros)

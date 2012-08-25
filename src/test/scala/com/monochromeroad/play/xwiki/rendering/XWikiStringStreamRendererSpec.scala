@@ -11,10 +11,11 @@ class XWikiStringStreamRendererSpec extends XWikiSyntaxSpec {
   val componentManager = new XWikiComponentManager(getClass.getClassLoader)
   componentManager.registerMacro(classOf[RbMacro])
 
-  val xwikiRenderer = new XWikiStringStreamRenderer(componentManager)
+  val xwikiRendererWithoutMacros =
+    new XWikiStringStreamRenderer(componentManager, new XWikiRendererConfiguration(macrosEnabled = false))
 
   val renderedHTMLBuilder = new StringBuilder()
-  xwikiRenderer.render(new StringReader(cheatSheet),
+  xwikiRendererWithoutMacros.render(new StringReader(cheatSheet),
     { (n: String) => renderedHTMLBuilder.append(n) }
   )
   val renderedHTML = renderedHTMLBuilder.toString()
@@ -35,8 +36,10 @@ class XWikiStringStreamRendererSpec extends XWikiSyntaxSpec {
     notContainMacroXhtmls(renderedHTML)
   }
 
+  val xwikiRenderer = new XWikiStringStreamRenderer(componentManager)
+
   val renderedMacroBuilder = new StringBuilder()
-  xwikiRenderer.renderWithMacros(
+  xwikiRenderer.render(
     new StringReader(cheatSheet),
     { (n: String) => renderedMacroBuilder.append(n) }
   )

@@ -4,11 +4,7 @@ import org.specs2.mutable._
 
 import play.api.test._
 import play.api.test.Helpers._
-import org.xwiki.rendering.syntax.Syntax
 import java.io.StringReader
-import org.xwiki.rendering.transformation.{TransformationContext, Transformation}
-import org.xwiki.rendering.renderer.printer.DefaultWikiPrinter
-import org.xwiki.rendering.renderer.PrintRendererFactory
 
 /**
  * Plugin for the default XWiki rendering system
@@ -18,31 +14,43 @@ import org.xwiki.rendering.renderer.PrintRendererFactory
 
 class DefaultXWikiRenderingPluginSpec extends Specification {
 
+  val testString = "**TEST** {{rb read='read'}}Unreadable word{{/rb}}"
+
+  override def is = args(sequential = true) ^ super.is
+
   "The Default XWiki Rendering Plugin" should {
-    "load default component" in {
+    "load default renderer" in {
       running(FakeApplication(
           additionalPlugins = Seq("com.monochromeroad.play.xwiki.rendering.DefaultXWikiRenderingPlugin"),
-          additionalConfiguration = Map("xwiki.rendering.default.macros.1" -> "com.monochromeroad.play.xwiki.rendering.macros.DefaultRbMacro"))) {
-        convert("**TEST** {{rb read='read'}}Unreadable word{{/rb}}") must contain("<ruby>")
+          additionalConfiguration = Map(
+            "xwiki.rendering.default.macros.enabled" -> "true",
+            "xwiki.rendering.default.macros.1" -> "com.monochromeroad.play.xwiki.rendering.macros.DefaultRbMacro"))) {
+        DefaultXWikiRenderer.render(testString) must contain("<ruby>")
+      }
+    }
+
+    "load default stream renderer" in {
+      running(FakeApplication(
+        additionalPlugins = Seq("com.monochromeroad.play.xwiki.rendering.DefaultXWikiRenderingPlugin"),
+        additionalConfiguration = Map(
+          "xwiki.rendering.default.macros.enabled" -> "false",
+          "xwiki.rendering.default.macros.1" -> "com.monochromeroad.play.xwiki.rendering.macros.DefaultRbMacro"))) {
+        val result = DefaultXWikiStreamRenderer.render[String](
+          new StringReader(testString), "", {(acc: String, n:String) => acc + n})
+        result must not contain("<ruby>")
+      }
+    }
+
+    "load default string stream renderer" in {
+      running(FakeApplication(
+        additionalPlugins = Seq("com.monochromeroad.play.xwiki.rendering.DefaultXWikiRenderingPlugin"),
+        additionalConfiguration = Map(
+          "xwiki.rendering.default.macros.1" -> "com.monochromeroad.play.xwiki.rendering.macros.DefaultRbMacro"))) {
+        var result = new StringBuilder()
+        DefaultXWikiStringStreamRenderer.render(new StringReader(testString), { n => result.append(n)})
+        result.toString() must contain("<ruby>")
       }
     }
   }
 
-  private def convert(src: String): String = {
-    val parser = DefaultXWikiComponentManager.getParser(Syntax.XWIKI_2_1.toIdString)
-    val xdom = parser.parse(new StringReader(src))
-
-    // Execute the Macro Transformation to execute Macros.
-    val transformation = DefaultXWikiComponentManager.getInstance[Transformation]("macro")
-    val txContext = new TransformationContext(xdom, parser.getSyntax)
-    transformation.transform(xdom, txContext)
-
-    // Convert input in XWiki Syntax 2.0 into XHTML. The result is stored in the printer.
-    val result = new StringBuffer()
-    val wikiPrinter = new DefaultWikiPrinter(result)
-    val printRendererFactory = DefaultXWikiComponentManager.getInstance[PrintRendererFactory](Syntax.XHTML_1_0.toIdString)
-    val renderer = printRendererFactory.createRenderer(wikiPrinter)
-    xdom.traverse(renderer)
-    result.toString
-  }
 }
