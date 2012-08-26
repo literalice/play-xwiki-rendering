@@ -129,7 +129,7 @@ import com.monochromeroad.play.xwiki.rendering.{DefaultXWikiRenderer => XCM}
 object Application extends Controller {
 
   def index = Action {
-    val htmlText = XCM.render("**TEST** {{comment}}This is a comment that is not contained in the result{{/comment}}")
+    val htmlText = XCM.render("**TEST** {{comment}}This is a comment that would not be contained in the result{{/comment}}")
     // <p><b>TEST</b> </p>
 
     // ...
