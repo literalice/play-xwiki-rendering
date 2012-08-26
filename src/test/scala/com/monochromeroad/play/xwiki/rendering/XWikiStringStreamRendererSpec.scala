@@ -9,8 +9,9 @@ import java.io.StringReader
 class XWikiStringStreamRendererSpec extends XWikiSyntaxSpec {
 
   val componentManager = new XWikiComponentManager(getClass.getClassLoader)
-  componentManager.registerMacro(classOf[RbMacro])
-  componentManager.registerMacro(classOf[DateMacro])
+  val macroManager = new XWikiMacroManager(componentManager)
+  macroManager.registerMacro(classOf[RbMacro])
+  macroManager.registerMacro(classOf[DateMacro])
 
   val xwikiRendererWithoutMacros =
     new XWikiStringStreamRenderer(componentManager, new XWikiRendererConfiguration(macrosEnabled = false))

@@ -8,8 +8,9 @@ import macros.{DateMacro, RbMacro}
 class XWikiRendererSpec extends XWikiSyntaxSpec {
 
   val componentManager = new XWikiComponentManager(getClass.getClassLoader)
-  componentManager.registerMacro(classOf[RbMacro])
-  componentManager.registerMacro(classOf[DateMacro])
+  val macroManager = new XWikiMacroManager(componentManager)
+  macroManager.registerMacro(classOf[RbMacro])
+  macroManager.registerMacro(classOf[DateMacro])
 
   val xwikiRenderer = new XWikiRenderer(componentManager)
 

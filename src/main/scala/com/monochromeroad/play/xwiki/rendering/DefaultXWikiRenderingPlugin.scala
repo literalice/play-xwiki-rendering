@@ -13,10 +13,13 @@ class DefaultXWikiRenderingPlugin(app: Application) extends Plugin {
   private final val KEY_MACRO_ENABLED: String = KEY_MACRO + ".enabled"
 
   override def onStart() {
+    val macroManager = new XWikiMacroManager(DefaultXWikiComponentManager)
+
     val macroListKeys = app.configuration.keys filter(p => p.startsWith(KEY_MACRO) && !p.startsWith(KEY_MACRO_ENABLED))
     val macroList = macroListKeys.map(app.configuration.getString(_).get)
+
     macroList.map({macroName =>
-      loadMacroClass(macroName).map(DefaultXWikiComponentManager.registerDefaultMacro)
+      loadMacroClass(macroName).map(macroManager.registerMacro(_))
     })
 
     val xwikiConfiguration = loadConfiguration(app.configuration)
