@@ -24,7 +24,7 @@ class DefaultXWikiRenderingPlugin(app: Application) extends Plugin {
 
     macroList.map({macroName =>
       loadMacroClass(macroName).map(macroManager.registerMacro(_))
-      Logger.info("Registered the macro: " + macroName)
+      Logger.info("Registered a macro: " + macroName)
     })
 
     val xwikiConfiguration = loadConfiguration(app.configuration)

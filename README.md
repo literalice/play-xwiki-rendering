@@ -110,7 +110,7 @@ object Application extends Controller {
 
 You can use some XWiki macros.
 
-To use XWiki macros, add a macro jar to your project or register a macro source code.
+To use a XWiki macro, add a macro jar to your project or register a macro source code.
 
 #### Adding a macro jar ####
 
@@ -145,7 +145,7 @@ If you want to create you own macro, the XWiki's site would be useful.
 
 [Writing a Macro](http://rendering.xwiki.org/xwiki/bin/view/Main/ExtendingMacro)
 
-First, write a macro code that extends DefaultXWikiMacro and has no parameter constructor.
+First, write a macro class that extends DefaultXWikiMacro or DefaultNoParameterMacro, and has no parameter constructor.
 
 and regster the macro class in the "conf/application.conf"
 
