@@ -137,6 +137,8 @@ object Application extends Controller {
 }
 ```
 
+See also about [XWiki official macros](http://rendering.xwiki.org/xwiki/bin/view/Main/Macros).
+
 #### Registering a macro code ####
 
 If you want to create you own macro, the XWiki's site would be useful.
