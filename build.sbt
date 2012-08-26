@@ -2,7 +2,7 @@ import sbt.Defaults._
 
 scalaVersion := "2.9.1"
 
-version := "1.0"
+version := "1.0-SNAPSHOT"
 
 organization := "com.monochromeroad"
 
