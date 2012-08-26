@@ -1,8 +1,8 @@
-# XWiki Rendering Framework Integration for Play 2 #
+# Play2 XWiki Rendering Module #
 
 ## Introduction ##
 
-This Play2 module allows you to convert texts using XWiki Rendering Framework.
+This Play2 module allows you to convert texts written in a certain wiki syntax to some formatted texts using XWiki Rendering Framework.
 
 ### Example ###
 
