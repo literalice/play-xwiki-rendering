@@ -2,9 +2,7 @@ import sbt.Defaults._
 
 scalaVersion := "2.9.1"
 
-crossScalaVersions := Seq("2.9.1", "2.9.2")
-
-version := "0.1.0-SNAPSHOT"
+version := "1.0"
 
 organization := "com.monochromeroad"
 
