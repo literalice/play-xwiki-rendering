@@ -9,13 +9,14 @@ object ApplicationBuild extends Build {
     id = "play-xwiki-rendering",
     base = file ("."),
     settings = Project.defaultSettings ++ Seq (
-      resolvers ++= getResolvers(),
-      libraryDependencies ++= getXWikiDependencies(),
-      publishTo <<= version(getPublishingRepository)
+      resolvers ++= dependenciesResolvers,
+      libraryDependencies ++= xwikiDependencies,
+      publishTo <<= version(getPublishingRepository),
+      credentials += repositoryCredential
     )
   )
 
-  def getResolvers() :Seq[Resolver] = {
+  def dependenciesResolvers = {
     Seq(
       DefaultMavenRepository,
       "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/",
@@ -24,7 +25,7 @@ object ApplicationBuild extends Build {
     )
   }
 
-  def getXWikiDependencies(): Seq[ModuleID] = {
+  def xwikiDependencies = {
     val xwikiGroup = "org.xwiki"
     val xwikiCommonsGroup = xwikiGroup + ".commons"
     val xwikiRenderingGroup = xwikiGroup + ".rendering"
@@ -53,6 +54,16 @@ object ApplicationBuild extends Build {
       }
     } else {
       Some(Resolver.file("file",  new File(Path.userHome.absolutePath + "/.m2/repository")))
+    }
+  }
+
+  def repositoryCredential = {
+    val credentialFile = (Path.userHome / ".ivy2" / ".credentials" / "repository-monochromeroad.forge.cloudbees.com")
+
+    if (credentialFile.exists) {
+      Credentials(credentialFile)
+    } else {
+      Credentials(file("/private/monochromeroad/.credentials/repository-monochromeroad.forge.cloudbees.com"))
     }
   }
 

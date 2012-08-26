@@ -14,12 +14,6 @@ libraryDependencies += "org.specs2" %% "specs2" % "1.12.1" % "test"
 
 publishMavenStyle := true
 
-credentials += {
-  val credsFile = (Path.userHome / ".ivy2" / ".credentials" / "repository-monochromeroad.forge.cloudbees.com")
-    (if (credsFile.exists) Credentials(credsFile)
-     else Credentials(file("/private/monochromeroad/.credentials/repository-monochromeroad.forge.cloudbees.com")))
-}
-
 publishArtifact in Test := false
 
 pomExtra := (
