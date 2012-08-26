@@ -2,13 +2,15 @@ import sbt.Defaults._
 
 scalaVersion := "2.9.1"
 
+crossScalaVersions := Seq("2.9.1", "2.9.2")
+
 version := "0.1.0-SNAPSHOT"
 
 organization := "com.monochromeroad"
 
-libraryDependencies += "play" %% "play" % "2.0.3" % "provided"
+libraryDependencies += "play" % "play_2.9.1" % "2.0.3" % "provided"
 
-libraryDependencies += "play" %% "play-test" % "2.0.3" % "test"
+libraryDependencies += "play" % "play-test_2.9.1" % "2.0.3" % "test"
 
 libraryDependencies += "org.specs2" %% "specs2" % "1.12.1" % "test"
 
