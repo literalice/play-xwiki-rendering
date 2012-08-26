@@ -42,7 +42,7 @@ class XWikiComponentManager(classLoader: ClassLoader) {
 
 object DefaultXWikiComponentManager extends XWikiComponentManager(current.classloader) {
 
-  def registerDefaultMacro(macroClass: Class[_<:DefaultXWikiMacro[_]]) {
+  def registerDefaultMacro(macroClass: Class[_<:XWikiMacro[_]]) {
     val macroInstance = macroClass.newInstance()
     macroInstance.initialize()
     registerMacro(macroInstance.macroName, macroInstance)

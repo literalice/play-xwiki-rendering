@@ -1,6 +1,6 @@
 package com.monochromeroad.play.xwiki.rendering
 
-import macros.RbMacro
+import macros.{DateMacro, RbMacro}
 import java.io.StringReader
 
 /**
@@ -10,6 +10,7 @@ class XWikiStringStreamRendererSpec extends XWikiSyntaxSpec {
 
   val componentManager = new XWikiComponentManager(getClass.getClassLoader)
   componentManager.registerMacro(classOf[RbMacro])
+  componentManager.registerMacro(classOf[DateMacro])
 
   val xwikiRendererWithoutMacros =
     new XWikiStringStreamRenderer(componentManager, new XWikiRendererConfiguration(macrosEnabled = false))
@@ -56,6 +57,7 @@ class XWikiStringStreamRendererSpec extends XWikiSyntaxSpec {
     containXhtmlLinks(renderedMacro)
     containXhtmlTables(renderedMacro)
     containMacroXhtmls(renderedMacro)
+    containNoParameterMacroXhtmls(renderedMacro)
   }
 }
 

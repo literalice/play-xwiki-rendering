@@ -1,6 +1,6 @@
 package com.monochromeroad.play.xwiki.rendering
 
-import macros.RbMacro
+import macros.{DateMacro, RbMacro}
 
 /**
  * @author Masatoshi Hayashi
@@ -9,6 +9,7 @@ class XWikiRendererSpec extends XWikiSyntaxSpec {
 
   val componentManager = new XWikiComponentManager(getClass.getClassLoader)
   componentManager.registerMacro(classOf[RbMacro])
+  componentManager.registerMacro(classOf[DateMacro])
 
   val xwikiRenderer = new XWikiRenderer(componentManager)
 
@@ -28,6 +29,7 @@ class XWikiRendererSpec extends XWikiSyntaxSpec {
     containXhtmlLinks(renderedCheatSheet)
     containXhtmlTables(renderedCheatSheet)
     containMacroXhtmls(renderedCheatSheet)
+    containNoParameterMacroXhtmls(renderedCheatSheet)
   }
 
   val xwikiRendererWithoutMacros =

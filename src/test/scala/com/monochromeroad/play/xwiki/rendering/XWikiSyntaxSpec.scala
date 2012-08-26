@@ -2,6 +2,7 @@ package com.monochromeroad.play.xwiki.rendering
 
 import org.specs2.mutable._
 import org.specs2.specification.Example
+import java.util.Date
 
 /**
  * XWiki Syntax Specification
@@ -244,9 +245,13 @@ Next paragraph in the top-level document
 
 This is not a ~[~[link~]~]
 
-= Macros =
+= Macros (with parameter) =
 
 {{rb read="rb text"}}Text{{/rb}}
+
+= Macros (no parameter) =
+
+Current Date: {{date/}}
 
                    """.trim
 
@@ -402,16 +407,22 @@ This is not a ~[~[link~]~]
 
   def containMacroXhtmls(target: String) :Example = {
     "contain macro xhtml codes" in {
-      val renderedTable = sampleHTML("macro")
-      target must contain(renderedTable("inline"))
+      val renderedMacro = sampleHTML("macro")
+      target must contain(renderedMacro("inline"))
     }
   }
 
   def notContainMacroXhtmls(target: String) :Example = {
     "not contain macro xhtml codes" in {
-      val renderedTable = sampleHTML("macro")
-      target must not contain(renderedTable("inline"))
+      val renderedMacro = sampleHTML("macro")
+      target must not contain(renderedMacro("inline"))
     }
   }
 
+  def containNoParameterMacroXhtmls(target: String) :Example = {
+    "contain no parameter macro xhtml codes" in {
+      val renderedDate = "Current Date: %tF" format new Date
+      target must contain(renderedDate)
+    }
+  }
 }
