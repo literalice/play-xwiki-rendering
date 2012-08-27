@@ -4,7 +4,7 @@ import play.api._
 import play.api.mvc._
 import java.io.StringReader
 import play.api.libs.iteratee.Enumerator.Pushee
-import com.monochromeroad.play.xwiki.rendering.{DefaultXWikiStringStreamRenderer => XCM}
+import com.monochromeroad.play.xwiki.rendering.plugin.{DefaultXWikiStringStreamRenderer => XCM}
 import play.api.libs.iteratee.Enumerator
 
 object Application extends Controller {
