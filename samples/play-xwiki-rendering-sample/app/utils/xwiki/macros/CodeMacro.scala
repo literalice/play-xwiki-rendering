@@ -1,12 +1,12 @@
 package utils.xwiki.macros
 
-import scala.collection.JavaConversions._
-import org.xwiki.rendering.transformation.MacroTransformationContext
+import com.monochromeroad.play.xwiki.rendering.plugin.DefaultXWikiMacro
 import org.apache.commons.lang3.{StringUtils, StringEscapeUtils}
+import org.xwiki.rendering.transformation.MacroTransformationContext
 import org.xwiki.rendering.block.{Block, ParagraphBlock, RawBlock}
 import org.xwiki.rendering.syntax.Syntax
 import reflect.BeanProperty
-import com.monochromeroad.play.xwiki.rendering.DefaultXWikiMacro
+import scala.collection.JavaConversions._
 
 /**
  * @author Masatoshi Hayashi

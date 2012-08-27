@@ -1,9 +1,9 @@
 package utils.xwiki.macros
 
+import com.monochromeroad.play.xwiki.rendering.plugin.DefaultXWikiNoParameterMacro
 import org.xwiki.rendering.transformation.MacroTransformationContext
 import org.xwiki.rendering.block.{Block, RawBlock}
 import org.xwiki.rendering.syntax.Syntax
-import com.monochromeroad.play.xwiki.rendering.DefaultXWikiNoParameterMacro
 import java.util.Date
 
 /**
