@@ -8,11 +8,13 @@ import org.xwiki.rendering.transformation.Transformation
 /**
  * XWiki Rendering System -- XDOM based
  *
- * <br /><br />
+ * It needs to create a XDOM that represents the whole document structure in a memory.
  *
- * It needs to create a XDOM represented the document structure in a memory.<br />
- * Default syntax: xwiki/2.1 output: xhtml/1.0
+ *   - '''Default Syntax''' xwiki/2.1
+ *   - '''Output''' xhtml/1.0
  *
+ * @param componentManager component manager used by the renderer
+ * @param configuration renderer configuration
  * @author Masatoshi Hayashi
  */
 class XWikiRenderer(componentManager: XWikiComponentManager,

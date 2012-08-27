@@ -5,11 +5,15 @@ import org.xwiki.rendering.transformation.MacroTransformationContext
 import org.xwiki.rendering.block.Block
 
 /**
- * XWiki no-parameter macro (e.g. {{date /}}) base to use in Grails.
+ * XWiki no-parameter macro (e.g. {{date /}}) base to use in Play.
  *
- * <p>You need to create a constructor that takes no arguments.</p>
+ * You need to create a constructor that takes no arguments.
  *
+ * @param name macro name ({{xxx}}macro content{{/xxx}}).
+ * @param description description about the macro.
+ * @param macroBeanManager the bean manager for the macro.
  * @author Masatoshi Hayashi
+ *
  */
 abstract class XWikiNoParameterMacro(name: String, description: String, macroBeanManager: BeanManager) extends XWikiMacro[Any](name, description, macroBeanManager) {
 
@@ -19,6 +23,12 @@ abstract class XWikiNoParameterMacro(name: String, description: String, macroBea
 
 }
 
+/**
+ * XWiki no-parameter macro (e.g. {{date /}}) base to use in Play default component manager.
+ *
+ * @param name macro name ({{xxx}}macro content{{/xxx}}).
+ * @param description description about the macro.
+ */
 abstract class DefaultXWikiNoParameterMacro(name: String, description: String)
   extends XWikiNoParameterMacro(name, description, DefaultXWikiComponentManager.getInstance[BeanManager]) { }
 

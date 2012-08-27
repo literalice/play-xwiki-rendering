@@ -9,6 +9,14 @@ import org.xwiki.rendering.transformation.{TransformationContext, Transformation
 import org.xwiki.rendering.parser.StreamParser
 
 /**
+ * XWiki Rendering System
+ *
+ * It needs to create a XDOM that represents the whole document structure in a memory.
+ *
+ *   - '''Default Syntax''' xwiki/2.1
+ *   - '''Output''' xhtml/1.0
+ *
+ * @param componentManager component manager used by the renderer
  * @author Masatoshi Hayashi
  */
 abstract class XWikiRenderingSystem(val componentManager: XWikiComponentManager, private var conf: XWikiRendererConfiguration) {

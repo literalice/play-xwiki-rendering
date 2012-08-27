@@ -4,6 +4,8 @@ import play.api._
 import scala.Some
 
 /**
+ * Play Plugin to configure XWiki default renderers
+ *
  * @author Masatoshi Hayashi
  */
 class DefaultXWikiRenderingPlugin(app: Application) extends Plugin {
