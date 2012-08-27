@@ -4,7 +4,7 @@
   <head>
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Play-xwiki-rendering : Play2 module allows you to convert texts written in a certain wiki syntax to some formatted texts using XWiki Rendering Framework." />
+    <meta name="description" content="play-xwiki-rendering : Play2 module allows you to convert texts written in a certain wiki syntax to some formatted texts using XWiki Rendering Framework." />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
@@ -36,18 +36,23 @@
 <h2>Introduction</h2>
 
 <p>This Play2 module allows you to convert texts written in a certain wiki syntax to some formatted texts using XWiki Rendering Framework.</p>
-
 <h3>Example</h3>
 
 <div class="highlight"><pre><span class="k">val</span> <span class="n">result</span> <span class="k">=</span> <span class="nc">DefaultXWikiRenderer</span><span class="o">.</span><span class="n">render</span><span class="o">(</span><span class="s">"** Bold ** {{code type="</span><span class="n">java</span><span class="s">"}}class Macro{}{{/code}}"</span><span class="o">)</span>
 <span class="c1">// &lt;p&gt;&lt;b&gt;Bold&lt;/b&gt;&lt;pre class="java"&gt;class Macro{}&lt;/pre&gt;&lt;/p&gt;</span>
 </pre></div>
 
-<p>See also <a href="http://rendering.xwiki.org/xwiki/bin/view/Main/WebHome">XWiki Rendering Framework</a> for the details about the framework.</p>
+<p>
+There is a <a href="https://github.com/literalice/play-xwiki-rendering/tree/master/samples/play-xwiki-rendering-sample">sample application</a> at the project repository.
+<br />
+And the api documents are <a href="api/index.html#com.monochromeroad.play.xwiki.rendering.package">here</a>.
+</p>
+<p>
+See also <a href="http://rendering.xwiki.org/xwiki/bin/view/Main/WebHome">XWiki Rendering Framework</a> for the details about the framework.</p>
 
 <h2>Installing the module</h2>
 
-<p>To use the module, a repository and dependency should be added to your "project/Build.scala"</p>
+<p>To use the module, a repository and dependency should be added to your <a href="https://github.com/literalice/play-xwiki-rendering/blob/master/samples/play-xwiki-rendering-sample/project/Build.scala">project/Build.scala</a></p>
 
 <dl>
 <dt>Repository</dt>
@@ -69,18 +74,20 @@
 <span class="o">}</span>
 </pre></div>
 
-<h2>Default XWiki Renderer</h2>
+<h2>Default XWiki renderer</h2>
 
 <p>This moudle provides some XWiki rendereres as a Play plugin.</p>
 
 <dl>
-<dt>com.monochromeroad.play.xwiki.rendering.plugin.DefaultXWikiRenderer</dt>
+    <dt><a href="api/index.html#com.monochromeroad.play.xwiki.rendering.plugin.DefaultXWikiRenderer$">DefaultXWikiRenderer</a></dt>
     <dd>XDOM based renderer</dd>
-    <dt>com.monochromeroad.play.xwiki.rendering.plugin.DefaultXWikiStreamRenderer</dt>
+    <dt><a href="api/index.html#com.monochromeroad.play.xwiki.rendering.plugin.DefaultXWikiStreamRenderer$">DefaultXWikiStreamRenderer</a></dt>
     <dd>Streaming based renderer</dd>
-    <dt>com.monochromeroad.play.xwiki.rendering.plugin.DefaultXWikiStringStreamRenderer</dt>
+    <dt><a href="api/index.html#com.monochromeroad.play.xwiki.rendering.plugin.DefaultXWikiStringStreamRenderer$">DefaultXWikiStringStreamRenderer</a></dt>
     <dd>Simplified streaming based renderer</dd>
-</dl><h3>Installing the default renderers</h3>
+</dl>
+
+<h3>Installing the default renderers</h3>
 
 <p>Just add a entry to the "plugins.sbt" in the conf directory.</p>
 
@@ -89,11 +96,11 @@
 
 <h3>DefaultXWikiRenderer</h3>
 
-<div class="highlight"><pre><span class="k">import</span> <span class="nn">com.monochromeroad.play.xwiki.rendering.plugin.</span><span class="o">{</span><span class="nc">DefaultXWikiRenderer</span> <span class="k">=&gt;</span> <span class="nc">XCM</span><span class="o">}</span>
+<div class="highlight"><pre><span class="k">import</span> <span class="nn">com.monochromeroad.play.xwiki.rendering.plugin.</span><span class="o">{</span><span class="nc">DefaultXWikiRenderer</span> <span class="k">=&gt;</span> <span class="nc">Renderer</span><span class="o">}</span>
 <span class="k">object</span> <span class="nc">Application</span> <span class="k">extends</span> <span class="nc">Controller</span> <span class="o">{</span>
 
   <span class="k">def</span> <span class="n">index</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span>
-    <span class="k">val</span> <span class="n">htmlText</span> <span class="k">=</span> <span class="nc">XCM</span><span class="o">.</span><span class="n">render</span><span class="o">(</span><span class="s">"**TEST** //italic//"</span><span class="o">)</span>
+    <span class="k">val</span> <span class="n">htmlText</span> <span class="k">=</span> <span class="nc">Renderer</span><span class="o">.</span><span class="n">render</span><span class="o">(</span><span class="s">"**TEST** //italic//"</span><span class="o">)</span>
 
     <span class="c1">// ...</span>
   <span class="o">}</span>
@@ -103,12 +110,12 @@
 <h3>DefaultXWikiStreamRenderer</h3>
 
 <div class="highlight"><pre><span class="k">import</span> <span class="nn">java.io.StringReader</span>
-<span class="k">import</span> <span class="nn">com.monochromeroad.play.xwiki.rendering.plugin.</span><span class="o">{</span><span class="nc">DefaultXWikiStreamRenderer</span> <span class="k">=&gt;</span> <span class="nc">XCM</span><span class="o">}</span>
+<span class="k">import</span> <span class="nn">com.monochromeroad.play.xwiki.rendering.plugin.</span><span class="o">{</span><span class="nc">DefaultXWikiStreamRenderer</span> <span class="k">=&gt;</span> <span class="nc">Renderer</span><span class="o">}</span>
 <span class="k">object</span> <span class="nc">Application</span> <span class="k">extends</span> <span class="nc">Controller</span> <span class="o">{</span>
 
   <span class="k">def</span> <span class="n">index</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span>
     <span class="k">val</span> <span class="n">sourceReader</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">StringReader</span><span class="o">(</span><span class="s">"**TEST** //italic//"</span><span class="o">)</span>
-    <span class="k">val</span> <span class="n">htmlText</span> <span class="k">=</span> <span class="nc">XCM</span><span class="o">.</span><span class="n">render</span><span class="o">(</span><span class="n">sourceReader</span><span class="o">,</span> <span class="s">"-- iv --"</span><span class="o">,</span> <span class="o">(</span><span class="n">acc</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">n</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">acc</span> <span class="o">+</span> <span class="n">n</span><span class="o">)</span>
+    <span class="k">val</span> <span class="n">htmlText</span> <span class="k">=</span> <span class="nc">Renderer</span><span class="o">.</span><span class="n">render</span><span class="o">(</span><span class="n">sourceReader</span><span class="o">,</span> <span class="s">"-- iv --"</span><span class="o">,</span> <span class="o">(</span><span class="n">acc</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">n</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">acc</span> <span class="o">+</span> <span class="n">n</span><span class="o">)</span>
 
     <span class="c1">// ...</span>
   <span class="o">}</span>
@@ -118,13 +125,13 @@
 <h3>DefaultXWikiStringStreamRenderer</h3>
 
 <div class="highlight"><pre><span class="k">import</span> <span class="nn">java.io.StringReader</span>
-<span class="k">import</span> <span class="nn">com.monochromeroad.play.xwiki.rendering.plugin.</span><span class="o">{</span><span class="nc">DefaultXWikiStringStreamRenderer</span> <span class="k">=&gt;</span> <span class="nc">XCM</span><span class="o">}</span>
+<span class="k">import</span> <span class="nn">com.monochromeroad.play.xwiki.rendering.plugin.</span><span class="o">{</span><span class="nc">DefaultXWikiStringStreamRenderer</span> <span class="k">=&gt;</span> <span class="nc">Renderer</span><span class="o">}</span>
 <span class="k">object</span> <span class="nc">Application</span> <span class="k">extends</span> <span class="nc">Controller</span> <span class="o">{</span>
 
   <span class="k">def</span> <span class="n">index</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span>
     <span class="k">val</span> <span class="n">sourceReader</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">StringReader</span><span class="o">(</span><span class="s">"**TEST** //italic//"</span><span class="o">)</span>
     <span class="k">val</span> <span class="n">result</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">StringBuilder</span><span class="o">()</span>
-    <span class="nc">XCM</span><span class="o">.</span><span class="n">render</span><span class="o">(</span><span class="n">sourceReader</span><span class="o">,</span> <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="o">(</span><span class="k">_</span><span class="o">))</span>
+    <span class="nc">Renderer</span><span class="o">.</span><span class="n">render</span><span class="o">(</span><span class="n">sourceReader</span><span class="o">,</span> <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="o">(</span><span class="k">_</span><span class="o">))</span>
 
     <span class="c1">// ...</span>
   <span class="o">}</span>
@@ -133,47 +140,53 @@
 
 <h3>Macros</h3>
 
-<p>You can use some XWiki macros.</p>
+<p>You can use some XWiki macros to extend the wiki syntax.</p>
 
-<p>To use a XWiki macro, add a macro jar to your project or register a macro source code.</p>
-
-<h4>Adding a macro jar</h4>
-
-<p>First, add the macro jar you want to use in the project.</p>
-
-<div class="highlight"><pre><span class="k">val</span> <span class="n">appDependencies</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">(</span>
-  <span class="s">"org.xwiki.rendering"</span> <span class="o">%</span> <span class="s">"xwiki-rendering-macro-comment"</span> <span class="o">%</span> <span class="s">"4.1.3"</span>
-<span class="o">)</span>
-</pre></div>
-
-<p>and</p>
-
-<div class="highlight"><pre><span class="k">import</span> <span class="nn">com.monochromeroad.play.xwiki.rendering.plugin.</span><span class="o">{</span><span class="nc">DefaultXWikiRenderer</span> <span class="k">=&gt;</span> <span class="nc">XCM</span><span class="o">}</span>
+<div class="highlight"><pre><span class="k">import</span> <span class="nn">com.monochromeroad.play.xwiki.rendering.plugin.</span><span class="o">{</span><span class="nc">DefaultXWikiRenderer</span> <span class="k">=&gt;</span> <span class="nc">Renderer</span><span class="o">}</span>
 <span class="k">object</span> <span class="nc">Application</span> <span class="k">extends</span> <span class="nc">Controller</span> <span class="o">{</span>
 
   <span class="k">def</span> <span class="n">index</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span>
-    <span class="k">val</span> <span class="n">htmlText</span> <span class="k">=</span> <span class="nc">XCM</span><span class="o">.</span><span class="n">render</span><span class="o">(</span><span class="s">"**TEST** {{comment}}This is a comment that would not be contained in the result{{/comment}}"</span><span class="o">)</span>
-    <span class="c1">// &lt;p&gt;&lt;b&gt;TEST&lt;/b&gt; &lt;/p&gt;</span>
+    <span class="k">val</span> <span class="n">htmlText</span> <span class="k">=</span> <span class="nc">Renderer</span><span class="o">.</span><span class="n">render</span><span class="o">(</span><span class="s">"**TEST** {{comment}}This is a comment that would not be contained in the result{{/comment}}"</span><span class="o">)</span>
+    <span class="c1">// Comment Macro: &lt;p&gt;&lt;b&gt;TEST&lt;/b&gt; &lt;/p&gt;</span>
 
     <span class="c1">// ...</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
 
+<p>To use a XWiki macro, add a macro jar to your project or register a macro source code.</p>
+
+<h4>Adding a macro jar</h4>
+
+<p>Just add the macro jar you want to use in the project.</p>
+
+<div class="highlight"><pre><span class="k">val</span> <span class="n">appDependencies</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">(</span>
+  <span class="s">"org.xwiki.rendering"</span> <span class="o">%</span> <span class="s">"xwiki-rendering-macro-comment"</span> <span class="o">%</span> <span class="s">"4.1.3"</span>
+<span class="o">)</span>
+</pre></div>
+
 <p>See also about <a href="http://rendering.xwiki.org/xwiki/bin/view/Main/Macros">XWiki official macros</a>.</p>
 
 <h4>Registering a macro code</h4>
 
-<p>If you want to create you own macro, the XWiki's site would be useful.</p>
+<p>First, write a macro class that extends <a href="api/index.html#com.monochromeroad.play.xwiki.rendering.plugin.DefaultXWikiMacro">DefaultXWikiMacro</a> or <a href="api/index.html#com.monochromeroad.play.xwiki.rendering.plugin.DefaultXWikiNoParameterMacro">DefaultXWikiNoParameterMacro</a>
+<br />
+You need to create the class with a nullary constructor.</p>
 
-<p><a href="http://rendering.xwiki.org/xwiki/bin/view/Main/ExtendingMacro">Writing a Macro</a></p>
+<p>Check out the sample macro code for more details.</p>
 
-<p>First, write a macro class that extends DefaultXWikiMacro or DefaultNoParameterMacro, and has no parameter constructor.</p>
+<ul>
+    <li><a href="https://github.com/literalice/play-xwiki-rendering/blob/master/samples/play-xwiki-rendering-sample/app/utils/xwiki/macros/CodeMacro.scala">Code Macro extends DefaultXWikiMacro</a></li>
+    <li><a href="https://github.com/literalice/play-xwiki-rendering/blob/master/samples/play-xwiki-rendering-sample/app/utils/xwiki/macros/DateMacro.scala">Date Macro extends DefaultNoParameterMacro</a></li>
+</ul>
 
-<p>and regster the macro class in the "conf/application.conf"</p>
+<p>Then regster the macro class in the <a href="https://github.com/literalice/play-xwiki-rendering/blob/master/samples/play-xwiki-rendering-sample/conf/application.conf">conf/application.conf</a></p>
 
-<pre><code>xwiki.rendering.default.macros.1=utils.xwiki.macros.CodeMacro
-</code></pre>
+<pre><code>xwiki.rendering.default.macros.1=utils.xwiki.macros.CodeMacro</code></pre>
+
+<p>When you create your own macro, the XWiki site document would be useful:<br />
+<a href="http://rendering.xwiki.org/xwiki/bin/view/Main/ExtendingMacro">Writing a Macro</a>
+</p>
 
 <h2>License</h2>
 
