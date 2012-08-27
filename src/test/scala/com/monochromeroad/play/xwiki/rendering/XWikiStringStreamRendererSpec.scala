@@ -17,9 +17,7 @@ class XWikiStringStreamRendererSpec extends XWikiSyntaxSpec {
     new XWikiStringStreamRenderer(componentManager, new XWikiRendererConfiguration(macrosEnabled = false))
 
   val renderedHTMLBuilder = new StringBuilder()
-  xwikiRendererWithoutMacros.render(new StringReader(cheatSheet),
-    { (n: String) => renderedHTMLBuilder.append(n) }
-  )
+  xwikiRendererWithoutMacros.render(new StringReader(cheatSheet), renderedHTMLBuilder.append(_))
   val renderedHTML = renderedHTMLBuilder.toString()
 
   "A html rendered without macros" should {
@@ -38,9 +36,7 @@ class XWikiStringStreamRendererSpec extends XWikiSyntaxSpec {
 
   val renderedMacroBuilder = new StringBuilder()
   xwikiRenderer.render(
-    new StringReader(cheatSheet),
-    { (n: String) => renderedMacroBuilder.append(n) }
-  )
+    new StringReader(cheatSheet), renderedMacroBuilder.append(_))
 
   val renderedMacro = renderedMacroBuilder.toString()
 

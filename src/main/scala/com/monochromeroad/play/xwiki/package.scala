@@ -8,8 +8,16 @@ package com.monochromeroad.play.xwiki
  *
  * == Example ==
  * {{{
- * val result = DefaultXWikiRenderer.render("** Bold ** {{code type="java"}}class Macro{}{{/code}}")
- * // <b>Bold</b><pre class="java">class Macro{}</pre>
+ * val componentManager = new XWikiComponentManager(getClass.getClassLoader)
+ * val macroManager = new XWikiMacroManager(componentManager)
+ * macroManager.registerMacro(classOf[CodeMacro])
+ * macroManager.registerMacro(classOf[DateMacro])
+ *
+ * val renderer = new XWikiStringStreamRenderer(componentManager)
+ *
+ * val builder = new StringBuilder()
+ * renderer.render(new StringReader("** Bold ** {{code type="java"}}class Macro{}{{/code}}"), builder.append(_))
+ * val result  = builder.toString()
  * }}}
  *
  * @author Masatoshi Hayashi

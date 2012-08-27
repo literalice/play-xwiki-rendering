@@ -18,8 +18,7 @@ class XWikiStreamRendererSpec extends XWikiSyntaxSpec {
 
   val renderedHTML = xwikiRendererWithoutMacros.render[String](
     new StringReader(cheatSheet),
-    "\n--------------- XWiki Cheat Sheet ---------------\n\n",
-    { (acc: String, n: String) => acc + n }
+    "\n--------------- XWiki Cheat Sheet ---------------\n\n", (acc: String, n: String) => acc + n
   )
 
   "A html rendered without macros" should {
