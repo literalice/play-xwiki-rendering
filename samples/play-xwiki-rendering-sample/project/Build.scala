@@ -8,7 +8,7 @@ object ApplicationBuild extends Build {
   val appVersion      = "1.0"
  
   val appDependencies = Seq(
-    "com.monochromeroad" %% "play-xwiki-rendering" % "0.1.0-SNAPSHOT"
+    "com.monochromeroad" %% "play-xwiki-rendering" % "1.0-SNAPSHOT"
   )
  
   val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(

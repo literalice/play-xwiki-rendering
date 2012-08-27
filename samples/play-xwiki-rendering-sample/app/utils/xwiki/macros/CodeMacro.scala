@@ -1,11 +1,10 @@
 package utils.xwiki.macros
 
+import scala.collection.JavaConversions._
 import org.xwiki.rendering.transformation.MacroTransformationContext
-import java.util.Collections
 import org.apache.commons.lang3.{StringUtils, StringEscapeUtils}
 import org.xwiki.rendering.block.{Block, ParagraphBlock, RawBlock}
 import org.xwiki.rendering.syntax.Syntax
-import java.util
 import reflect.BeanProperty
 import com.monochromeroad.play.xwiki.rendering.DefaultXWikiMacro
 
@@ -16,9 +15,9 @@ class CodeMacro extends DefaultXWikiMacro[CodeMacroParameters]("code", "Code Mac
 
   def supportsInlineMode() = true
 
-  def execute(parameters: CodeMacroParameters, content: String, context: MacroTransformationContext): util.List[Block] = {
+  def exec(parameters: CodeMacroParameters, content: String, context: MacroTransformationContext): List[Block] = {
     if (StringUtils.isBlank(content)) {
-      Collections.emptyList[Block]()
+      List.empty[Block]
     } else {
       val codeText =
         "<pre class=\"" + StringEscapeUtils.escapeHtml4(parameters.mode) + "\">" +
@@ -26,10 +25,10 @@ class CodeMacro extends DefaultXWikiMacro[CodeMacroParameters]("code", "Code Mac
         "</pre>"
       val codeBlock = new RawBlock(codeText, Syntax.XHTML_1_0)
       if (context.isInline) {
-        Collections.singletonList[Block](codeBlock)
+        List[Block](codeBlock)
       } else {
-        Collections.singletonList[Block](
-          new ParagraphBlock(Collections.singletonList[Block](codeBlock)))
+        List[Block](
+          new ParagraphBlock(List[Block](codeBlock)))
       }
     }
   }
