@@ -16,6 +16,8 @@ publishMavenStyle := true
 
 publishArtifact in Test := false
 
+testOptions in Test += Tests.Argument("junitxml")
+
 pomExtra := (
   <url>http://github.com/literalice/play-xwiki-rendering</url>
   <inceptionYear>2012</inceptionYear>
