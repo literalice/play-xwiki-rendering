@@ -22,9 +22,6 @@ class XWikiStreamRendererSpec extends XWikiSyntaxSpec {
     { (acc: String, n: String) => acc + n }
   )
 
-  println(renderedHTML)
-  println("\n-------------------------------------------------\n")
-
   "A html rendered without macros" should {
     containXhtmlHeading(renderedHTML)
     containXhtmlFormats(renderedHTML)

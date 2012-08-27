@@ -22,10 +22,6 @@ class XWikiStringStreamRendererSpec extends XWikiSyntaxSpec {
   )
   val renderedHTML = renderedHTMLBuilder.toString()
 
-  println("\n--------------- XWiki Cheat Sheet ---------------\n")
-  println(renderedHTML)
-  println("\n-------------------------------------------------\n")
-
   "A html rendered without macros" should {
     containXhtmlHeading(renderedHTML)
     containXhtmlFormats(renderedHTML)
