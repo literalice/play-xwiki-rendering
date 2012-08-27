@@ -19,13 +19,9 @@ import org.xwiki.rendering.parser.StreamParser
  * @param componentManager component manager used by the renderer
  * @author Masatoshi Hayashi
  */
-abstract class XWikiRenderingSystem(val componentManager: XWikiComponentManager, private var conf: XWikiRendererConfiguration) {
+abstract class XWikiRenderingSystem(protected val componentManager: XWikiComponentManager, protected val configuration: XWikiRendererConfiguration) {
 
   protected final val transformationForMacro: Transformation =  componentManager.getInstance[Transformation]("macro")
-
-  protected final def configuration: XWikiRendererConfiguration = {
-    this.conf
-  }
 
   protected def render(source :Reader, input: Syntax, output: Syntax, transformations: Seq[Transformation], printer: WikiPrinter) {
     if (transformations.isEmpty && !configuration.macrosEnabled) {
@@ -72,10 +68,6 @@ abstract class XWikiRenderingSystem(val componentManager: XWikiComponentManager,
       transformationForMacro.transform(xdom, txContext)
     }
     transformations.map({ tx => tx.transform(xdom, txContext)})
-  }
-
-  def configure(conf: XWikiRendererConfiguration) {
-    this.conf = conf
   }
 
 }
