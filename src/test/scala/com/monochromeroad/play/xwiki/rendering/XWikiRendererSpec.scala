@@ -1,6 +1,6 @@
 package com.monochromeroad.play.xwiki.rendering
 
-import macros.{DateMacro, RbMacro}
+import macros._
 
 /**
  * @author Masatoshi Hayashi

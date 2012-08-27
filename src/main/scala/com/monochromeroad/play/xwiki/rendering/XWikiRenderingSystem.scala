@@ -74,7 +74,7 @@ abstract class XWikiRenderingSystem(val componentManager: XWikiComponentManager,
     transformations.map({ tx => tx.transform(xdom, txContext)})
   }
 
-  private[rendering] def configure(conf: XWikiRendererConfiguration) {
+  def configure(conf: XWikiRendererConfiguration) {
     this.conf = conf
   }
 

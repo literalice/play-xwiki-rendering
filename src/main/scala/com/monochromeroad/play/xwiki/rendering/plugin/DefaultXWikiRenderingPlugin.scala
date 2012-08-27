@@ -1,6 +1,8 @@
-package com.monochromeroad.play.xwiki.rendering
+package com.monochromeroad.play.xwiki.rendering.plugin
 
 import play.api._
+import com.monochromeroad.play.xwiki.rendering._
+import macros.XWikiMacroManager
 import scala.Some
 
 /**

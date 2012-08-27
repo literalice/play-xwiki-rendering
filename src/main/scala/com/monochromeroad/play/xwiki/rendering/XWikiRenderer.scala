@@ -95,10 +95,4 @@ class XWikiRenderer(componentManager: XWikiComponentManager,
 
 }
 
-/**
- * Default XWiki rendering system in the Play XWiki Plugin.
- *
- * @author Masatoshi Hayashi
- */
-object DefaultXWikiRenderer extends XWikiRenderer(DefaultXWikiComponentManager)
 

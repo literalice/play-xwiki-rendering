@@ -1,4 +1,4 @@
-package com.monochromeroad.play.xwiki.rendering
+package com.monochromeroad.play.xwiki.rendering.plugin
 
 import org.specs2.mutable._
 
@@ -22,10 +22,10 @@ class DefaultXWikiRenderingPluginSpec extends Specification {
   "The Default XWiki Rendering Plugin" should {
     "load default renderer" in {
       running(FakeApplication(
-          additionalPlugins = Seq("com.monochromeroad.play.xwiki.rendering.DefaultXWikiRenderingPlugin"),
+          additionalPlugins = Seq("com.monochromeroad.play.xwiki.rendering.plugin.DefaultXWikiRenderingPlugin"),
           additionalConfiguration = Map(
             "xwiki.rendering.default.macros.enabled" -> "true",
-            "xwiki.rendering.default.macros.1" -> "com.monochromeroad.play.xwiki.rendering.macros.DefaultRbMacro"))) {
+            "xwiki.rendering.default.macros.1" -> "com.monochromeroad.play.xwiki.rendering.plugin.RbMacro"))) {
         val result = DefaultXWikiRenderer.render(testString)
         result must contain("<ruby>")
         result must not contain("Current %tF" format new Date())
@@ -34,10 +34,10 @@ class DefaultXWikiRenderingPluginSpec extends Specification {
 
     "load default stream renderer" in {
       running(FakeApplication(
-        additionalPlugins = Seq("com.monochromeroad.play.xwiki.rendering.DefaultXWikiRenderingPlugin"),
+        additionalPlugins = Seq("com.monochromeroad.play.xwiki.rendering.plugin.DefaultXWikiRenderingPlugin"),
         additionalConfiguration = Map(
           "xwiki.rendering.default.macros.enabled" -> "false",
-          "xwiki.rendering.default.macros.1" -> "com.monochromeroad.play.xwiki.rendering.macros.DefaultRbMacro"))) {
+          "xwiki.rendering.default.macros.1" -> "com.monochromeroad.play.xwiki.rendering.plugin.RbMacro"))) {
         val result = DefaultXWikiStreamRenderer.render[String](
           new StringReader(testString), "", {(acc: String, n:String) => acc + n})
         result must not contain("<ruby>")
@@ -46,10 +46,10 @@ class DefaultXWikiRenderingPluginSpec extends Specification {
 
     "load default string stream renderer" in {
       running(FakeApplication(
-        additionalPlugins = Seq("com.monochromeroad.play.xwiki.rendering.DefaultXWikiRenderingPlugin"),
+        additionalPlugins = Seq("com.monochromeroad.play.xwiki.rendering.plugin.DefaultXWikiRenderingPlugin"),
         additionalConfiguration = Map(
-          "xwiki.rendering.default.macros.1" -> "com.monochromeroad.play.xwiki.rendering.macros.DefaultRbMacro",
-          "xwiki.rendering.default.macros.2" -> "com.monochromeroad.play.xwiki.rendering.macros.DefaultDateMacro"
+          "xwiki.rendering.default.macros.1" -> "com.monochromeroad.play.xwiki.rendering.plugin.RbMacro",
+          "xwiki.rendering.default.macros.2" -> "com.monochromeroad.play.xwiki.rendering.plugin.DateMacro"
         ))) {
         var result = new StringBuilder()
         DefaultXWikiStringStreamRenderer.render(new StringReader(testString), { n => result.append(n)})

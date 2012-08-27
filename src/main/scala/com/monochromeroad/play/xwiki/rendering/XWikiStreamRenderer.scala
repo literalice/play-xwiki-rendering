@@ -113,10 +113,3 @@ class XWikiStreamRenderer(componentManager: XWikiComponentManager,
 
 }
 
-/**
- * Default XWiki streaming rendering system in the Play XWiki Plugin.
- *
- * @author Masatoshi Hayashi
- */
-object DefaultXWikiStreamRenderer extends XWikiStreamRenderer(DefaultXWikiComponentManager)
-

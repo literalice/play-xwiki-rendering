@@ -1,4 +1,4 @@
-package com.monochromeroad.play.xwiki.rendering
+package com.monochromeroad.play.xwiki.rendering.macros
 
 import java.util
 import scala.collection.JavaConversions._
@@ -37,14 +37,3 @@ abstract class XWikiMacro[P](name: String, description: String, macroBeanManager
   def exec(parameters: P, content: String, context: MacroTransformationContext): List[Block]
 }
 
-/**
- * XWiki macro takes some parameters (e.g. {{code for="java" /}}) to use in Play default component manager.
- *
- * @tparam P bean class that represents the macro's parameter.
- * @param name macro name ({{xxx}}macro content{{/xxx}}).
- * @param description description about the macro.
- *
- * @author Masatoshi Hayashi
- */
-abstract class DefaultXWikiMacro[P](name: String, description: String)(implicit c: ClassManifest[P])
-  extends XWikiMacro[P](name, description, DefaultXWikiComponentManager.getInstance[BeanManager]) { }

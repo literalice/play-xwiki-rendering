@@ -1,6 +1,6 @@
 package com.monochromeroad.play.xwiki.rendering
 
-import macros.RbMacro
+import macros.{XWikiMacroManager, RbMacro}
 import org.specs2.mutable._
 
 import org.xwiki.rendering.syntax.Syntax

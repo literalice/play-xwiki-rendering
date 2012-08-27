@@ -1,8 +1,9 @@
-package com.monochromeroad.play.xwiki.rendering
+package com.monochromeroad.play.xwiki.rendering.macros
 
 import org.xwiki.component.descriptor.DefaultComponentDescriptor
 import org.xwiki.rendering.`macro`.Macro
 import org.xwiki.properties.BeanManager
+import com.monochromeroad.play.xwiki.rendering.XWikiComponentManager
 
 /**
  * XWiki Macro Component Manager / Repository

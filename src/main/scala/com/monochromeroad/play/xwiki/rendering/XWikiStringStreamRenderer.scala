@@ -89,10 +89,4 @@ class XWikiStringStreamRenderer (componentManager: XWikiComponentManager,
     render(source, configuration.defaultInputSyntax, configuration.defaultOutputSyntax, proc)
   }
 }
-/**
- * Default XWiki streaming rendering system in the Play XWiki Plugin.
- *
- * @author Masatoshi Hayashi
- */
-object DefaultXWikiStringStreamRenderer extends XWikiStringStreamRenderer(DefaultXWikiComponentManager)
 

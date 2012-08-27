@@ -6,15 +6,12 @@ import org.apache.commons.lang3.{StringUtils, StringEscapeUtils}
 import org.xwiki.rendering.block.{Block, ParagraphBlock, RawBlock}
 import org.xwiki.rendering.syntax.Syntax
 import reflect.BeanProperty
-import com.monochromeroad.play.xwiki.rendering.{DefaultXWikiMacro, XWikiMacro}
 import org.xwiki.properties.BeanManager
 
 /**
  * @author Masatoshi Hayashi
  */
 class RbMacro(beanManager: BeanManager) extends XWikiMacro[RbMacroParameters]("rb", "Text Ruby", beanManager) with RbMacroSpec {}
-
-class DefaultRbMacro extends DefaultXWikiMacro[RbMacroParameters]("rb", "Text Ruby") with RbMacroSpec { }
 
 trait RbMacroSpec {
 
