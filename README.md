@@ -45,11 +45,11 @@ object ApplicationBuild extends Build {
 This moudle provides some XWiki rendereres as a Play plugin.
 
 <dl>
-    <dt>com.monochromeroad.play.xwiki.rendering.DefaultXWikiRenderer</dt>
+    <dt>com.monochromeroad.play.xwiki.rendering.plugin.DefaultXWikiRenderer</dt>
     <dd>XDOM based renderer</dd>
-    <dt>com.monochromeroad.play.xwiki.rendering.DefaultXWikiStreamRenderer</dt>
+    <dt>com.monochromeroad.play.xwiki.rendering.plugin.DefaultXWikiStreamRenderer</dt>
     <dd>Streaming based renderer</dd>
-    <dt>com.monochromeroad.play.xwiki.rendering.DefaultXWikiStringStreamRenderer</dt>
+    <dt>com.monochromeroad.play.xwiki.rendering.plugin.DefaultXWikiStringStreamRenderer</dt>
     <dd>Simplified streaming based renderer</dd>
 </dl>
 
@@ -57,12 +57,12 @@ This moudle provides some XWiki rendereres as a Play plugin.
 
 Just add a entry to the "plugins.sbt" in the conf directory.
 
-    10000:com.monochromeroad.play.xwiki.rendering.DefaultXWikiRenderingPlugin
+    10000:com.monochromeroad.play.xwiki.rendering.plugin.DefaultXWikiRenderingPlugin
 
 ### DefaultXWikiRenderer ###
 
 ```scala
-import com.monochromeroad.play.xwiki.rendering.{DefaultXWikiRenderer => XCM}
+import com.monochromeroad.play.xwiki.rendering.plugin.{DefaultXWikiRenderer => XCM}
 object Application extends Controller {
 
   def index = Action {
@@ -77,12 +77,12 @@ object Application extends Controller {
 
 ```scala
 import java.io.StringReader
-import com.monochromeroad.play.xwiki.rendering.{DefaultXWikiStreamRenderer => XCM}
+import com.monochromeroad.play.xwiki.rendering.plugin.{DefaultXWikiStreamRenderer => XCM}
 object Application extends Controller {
 
   def index = Action {
     val sourceReader = new StringReader("**TEST** //italic//")
-    val htmlText = XCM.render(sourceReader, "-- iv --", {acc, n => acc + n})
+    val htmlText = XCM.render(sourceReader, "-- iv --", (acc: String, n: String) => acc + n)
 
     // ...
   }
@@ -93,13 +93,13 @@ object Application extends Controller {
 
 ```scala
 import java.io.StringReader
-import com.monochromeroad.play.xwiki.rendering.{DefaultXWikiStringStreamRenderer => XCM}
+import com.monochromeroad.play.xwiki.rendering.plugin.{DefaultXWikiStringStreamRenderer => XCM}
 object Application extends Controller {
 
   def index = Action {
     val sourceReader = new StringReader("**TEST** //italic//")
     val result = new StringBuilder()
-    XCM.render(sourceReader, {n => result.append(n)})
+    XCM.render(sourceReader, result.append(_))
 
     // ...
   }
@@ -125,7 +125,7 @@ val appDependencies = Seq(
 and
 
 ```scala
-import com.monochromeroad.play.xwiki.rendering.{DefaultXWikiRenderer => XCM}
+import com.monochromeroad.play.xwiki.rendering.plugin.{DefaultXWikiRenderer => XCM}
 object Application extends Controller {
 
   def index = Action {
@@ -150,7 +150,6 @@ First, write a macro class that extends DefaultXWikiMacro or DefaultNoParameterM
 and regster the macro class in the "conf/application.conf"
 
     xwiki.rendering.default.macros.1=utils.xwiki.macros.CodeMacro
-
 
 ## License ##
 
