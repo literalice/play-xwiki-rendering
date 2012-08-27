@@ -55,5 +55,17 @@ class XWikiComponentManager(classLoader: ClassLoader) {
     componentManager.registerComponent(componentDescriptor, componentInstance)
   }
 
+  /**
+   * Unregisters a XWiki component to the component manager.
+   *
+   * @param roleHint the component role hint
+   * @param roleType the component type
+   * @tparam T The component class
+   */
+  def unregisterComponent[T](roleHint: String)(implicit roleType: ClassManifest[T]) {
+    componentManager.unregisterComponent(roleType.erasure, roleHint)
+  }
+
+
 }
 

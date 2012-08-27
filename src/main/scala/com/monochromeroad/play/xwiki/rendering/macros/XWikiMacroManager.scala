@@ -24,6 +24,28 @@ class XWikiMacroManager(componentManager: XWikiComponentManager) {
   }
 
   /**
+   * Unregisters a XWiki macro component to the manager.
+   *
+   * @param macroClass macro class
+   */
+  def unregisterMacro(macroClass: Class[_<:XWikiMacro[_]]) {
+    val macroInstance = getMacroInstance(macroClass)
+    unregisterMacro(macroInstance.macroName)
+  }
+
+  /**
+   * Reloads a XWiki macro component to the manager.
+   *
+   * @param macroClass macro class
+   */
+  def reloadMacro(macroClass: Class[_<:XWikiMacro[_]]) {
+    val macroInstance = getMacroInstance(macroClass)
+    macroInstance.initialize()
+    unregisterMacro(macroInstance.macroName)
+    registerMacro(macroInstance.macroName, macroInstance)
+  }
+
+  /**
    * Registers a XWiki macro component to the manager.
    *
    * @param name name of the macro
@@ -35,6 +57,15 @@ class XWikiMacroManager(componentManager: XWikiComponentManager) {
     macroDescriptor.setRoleType(classOf[Macro[_]])
     macroDescriptor.setRoleHint(name)
     componentManager.registerComponent(macroDescriptor, macroInstance)
+  }
+
+  /**
+   * Unregisters a XWiki macro component to the manager.
+   *
+   * @param name name of the macro
+   */
+  def unregisterMacro(name: String) {
+    componentManager.unregisterComponent[Macro[_]](name)
   }
 
   private def getMacroInstance[T<:XWikiMacro[_]](macroClass: Class[T]): T = {
